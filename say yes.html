@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Для тебя ✨</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Nunito & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        roseGlow: '#ff4d79',
+                        softPink: '#fff0f5',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animated Romantic Mesh Gradient Background */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow: hidden;
+            background: linear-gradient(-45deg, #ffdee9, #ffe8f0, #e8dff5, #ffd6e0, #fff0f5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            box-shadow:
+                0 20px 50px rgba(236, 72, 153, 0.14),
+                0 4px 16px rgba(236, 72, 153, 0.08),
+                inset 0 1px 1px rgba(255, 255, 255, 0.9);
+        }
+
+        /* Step Transition Animations */
+        .step-enter {
+            animation: stepFadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes stepFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(18px) scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Floating Emoji Pulse */
+        .float-slow {
+            animation: floatSlow 3.2s ease-in-out infinite;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(4deg); }
+        }
+
+        .heartbeat {
+            animation: heartBeat 1.6s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.16); }
+            30% { transform: scale(0.96); }
+            45% { transform: scale(1.10); }
+        }
+
+        /* Primary Romantic Button */
+        .btn-romantic {
+            background: linear-gradient(135deg, #ff4d79 0%, #ff758c 50%, #ff6b9d 100%);
+            box-shadow: 0 10px 25px -5px rgba(255, 77, 121, 0.5), 0 4px 10px -2px rgba(255, 77, 121, 0.3);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-romantic:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 14px 30px -5px rgba(255, 77, 121, 0.65), 0 6px 14px -2px rgba(255, 77, 121, 0.4);
+        }
+
+        .btn-romantic:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* Option Card Styling */
+        .option-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 2px solid rgba(244, 114, 182, 0.2);
+            transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .option-card:hover {
+            background: rgba(255, 255, 255, 0.98);
+            border-color: rgba(244, 114, 182, 0.65);
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.18);
+        }
+
+        .option-card:active {
+            transform: scale(0.98);
+        }
+
+        /* Runaway No Button Transition */
+        #no-btn {
+            transition: left 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        top 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        transform 0.2s ease,
+                        background-color 0.2s ease;
+            touch-action: none;
+        }
+
+        /* Custom Scrollbar for Modals if needed on small screens */
+        .custom-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(236, 72, 153, 0.3);
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="relative flex items-center justify-center p-4 text-slate-800 antialiased selection:bg-pink-200 selection:text-pink-900">
+
+    <!-- Background Interactive Floating Hearts Canvas -->
+    <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Celebration Confetti Canvas -->
+    <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-40"></canvas>
+
+    <!-- Top Controls: Progress Dots & Sound Toggle -->
+    <div class="fixed top-4 left-0 right-0 z-20 flex items-center justify-between px-5 max-w-lg mx-auto w-full">
+        <!-- Step Progress Indicator -->
+        <div id="progress-container" class="flex items-center gap-2 bg-white/60 backdrop-blur-md px-3.5 py-2 rounded-full border border-white/80 shadow-sm">
+            <span class="progress-dot w-2.5 h-2.5 rounded-full bg-pink-500 transition-all duration-300"></span>
+            <span class="progress-dot w-2 h-2 rounded-full bg-pink-200 transition-all duration-300"></span>
+            <span class="progress-dot w-2 h-2 rounded-full bg-pink-200 transition-all duration-300"></span>
+            <span class="progress-dot w-2 h-2 rounded-full bg-pink-200 transition-all duration-300"></span>
+            <span class="progress-dot w-2 h-2 rounded-full bg-pink-200 transition-all duration-300"></span>
+        </div>
+
+        <!-- Sound Effects Toggle -->
+        <button id="sound-toggle" onclick="toggleSound()" title="Звуковые эффекты"
+            class="w-10 h-10 rounded-full bg-white/65 backdrop-blur-md border border-white/80 shadow-sm flex items-center justify-center text-lg hover:bg-white transition-all active:scale-95">
+            <span id="sound-icon">🔊</span>
+        </button>
+    </div>
+
+    <!-- Main Interactive Glassmorphism Card -->
+    <main id="main-card" class="glass-card relative z-10 w-full max-w-md rounded-3xl p-6 sm:p-8 text-center transition-all duration-300 my-auto">
+
+        <!-- STEP 1: Intro -->
+        <section id="step-1" class="step-section step-enter flex flex-col items-center">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-pink-100 to-rose-50 border border-pink-200/60 shadow-inner flex items-center justify-center text-4xl mb-5 float-slow">
+                ✨💌
+            </div>
+            <h1 id="intro-heading" class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-800 mb-3 tracking-tight">
+                Привет! ✨
+            </h1>
+            <p class="text-slate-600 text-base sm:text-lg leading-relaxed mb-7">
+                У меня есть к тебе несколько важных вопросов. Обещаю, это займёт всего минуту. Начнём?
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 w-full">
+                <button onclick="goToStep(2)" class="btn-romantic flex-1 py-3.5 px-6 rounded-2xl text-white font-bold text-base sm:text-lg flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Давай!</span>
+                    <span>👉</span>
+                </button>
+                <button onclick="goToStep(2)" class="flex-1 py-3.5 px-6 rounded-2xl bg-white/85 hover:bg-white text-pink-600 font-bold text-base sm:text-lg border-2 border-pink-200/80 hover:border-pink-300 transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+                    <span>Заинтриговал</span>
+                    <span>👀</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- STEP 2: Question 1 (Evening Format) -->
+        <section id="step-2" class="step-section hidden flex-col items-center">
+            <span class="inline-block text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100/90 px-3 py-1 rounded-full mb-3">
+                Вопрос 1 из 3
+            </span>
+            <div class="text-4xl mb-3 float-slow">🌙✨</div>
+            <h2 class="font-heading text-xl sm:text-2xl font-extrabold text-slate-800 mb-2">
+                Какой формат вечера тебе нравится больше всего?
+            </h2>
+            <p class="text-slate-500 text-sm mb-5">
+                Выбери то, что ближе твоему настроению
+            </p>
+
+            <div class="flex flex-col gap-3 w-full text-left">
+                <button onclick="selectAnswer(1, 'Уютная прогулка по красивым местам 🌃', 3)"
+                    class="option-card w-full p-4 rounded-2xl flex items-center gap-3.5 cursor-pointer group">
+                    <span class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform">
+                        🌃
+                    </span>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-sm sm:text-base">Уютная прогулка по красивым местам</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Огни вечернего города и тёплая атмосфера</div>
+                    </div>
+                </button>
+
+                <button onclick="selectAnswer(1, 'Вкусный ужин и долгие разговоры ☕✨', 3)"
+                    class="option-card w-full p-4 rounded-2xl flex items-center gap-3.5 cursor-pointer group">
+                    <span class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-100 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform">
+                        ☕
+                    </span>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-sm sm:text-base">Вкусный ужин и долгие разговоры</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Уютное место, вкусная еда и обо всём на свете</div>
+                    </div>
+                </button>
+
+                <button onclick="selectAnswer(1, 'Что-то весёлое и спонтанное 🎡', 3)"
+                    class="option-card w-full p-4 rounded-2xl flex items-center gap-3.5 cursor-pointer group">
+                    <span class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform">
+                        🎡
+                    </span>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-sm sm:text-base">Что-то весёлое и спонтанное</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Яркие эмоции, смех и приключения</div>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- STEP 3: Question 2 (Company Vibe) -->
+        <section id="step-3" class="step-section hidden flex-col items-center">
+            <span class="inline-block text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100/90 px-3 py-1 rounded-full mb-3">
+                Вопрос 2 из 3
+            </span>
+            <div class="text-4xl mb-3 float-slow">💫😊</div>
+            <h2 class="font-heading text-xl sm:text-2xl font-extrabold text-slate-800 mb-2">
+                Что для тебя самое главное в хорошей компании?
+            </h2>
+            <p class="text-slate-500 text-sm mb-5">
+                Чтобы вечер прошёл действительно идеально
+            </p>
+
+            <div class="flex flex-col gap-3 w-full text-left">
+                <button onclick="selectAnswer(2, 'Чтобы было легко и весело смеяться 😊', 4)"
+                    class="option-card w-full p-4 rounded-2xl flex items-center gap-3.5 cursor-pointer group">
+                    <span class="w-12 h-12 rounded-xl bg-yellow-50 border border-yellow-100 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform">
+                        😊
+                    </span>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-sm sm:text-base">Чтобы было легко и весело смеяться</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Никакой неловкости, только классный вайб</div>
+                    </div>
+                </button>
+
+                <button onclick="selectAnswer(2, 'Искренность и классная атмосфера 💫', 4)"
+                    class="option-card w-full p-4 rounded-2xl flex items-center gap-3.5 cursor-pointer group">
+                    <span class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform">
+                        💫
+                    </span>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-sm sm:text-base">Искренность и классная атмосфера</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Когда время пролетает незаметно</div>
+                    </div>
+                </button>
+
+                <button onclick="selectAnswer(2, 'Вкусняшки и хорошее настроение 🍰', 4)"
+                    class="option-card w-full p-4 rounded-2xl flex items-center gap-3.5 cursor-pointer group">
+                    <span class="w-12 h-12 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform">
+                        🍰
+                    </span>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-sm sm:text-base">Вкусняшки и хорошее настроение</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Сладкий десерт, любимый напиток и улыбки</div>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- STEP 4: Pre-final Suspense -->
+        <section id="step-4" class="step-section hidden flex-col items-center">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-rose-100 to-pink-50 border border-pink-200/60 shadow-inner flex items-center justify-center text-4xl mb-5 float-slow">
+                📝❤️
+            </div>
+            <h2 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-800 mb-3">
+                Отлично, я всё записал!
+            </h2>
+            <p class="text-slate-600 text-base sm:text-lg leading-relaxed mb-7">
+                А теперь самый главный вопрос...<br>
+                <span class="font-bold text-pink-600">Готова ответить честно?</span>
+            </p>
+            <button onclick="goToStep(5)" class="btn-romantic w-full py-4 px-8 rounded-2xl text-white font-bold text-lg flex items-center justify-center gap-2 cursor-pointer">
+                <span>Готова!</span>
+                <span class="heartbeat inline-block">❤️</span>
+            </button>
+        </section>
+
+        <!-- STEP 5: The Final Question with Runaway "No" Button -->
+        <section id="step-5" class="step-section hidden flex-col items-center">
+            <span class="inline-block text-xs font-bold uppercase tracking-wider text-pink-600 bg-pink-100/90 px-3 py-1 rounded-full mb-3">
+                Вопрос 3 из 3 • Самый важный
+            </span>
+            <div id="final-emoji" class="text-5xl mb-4 heartbeat">💖</div>
+            <h2 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-800 mb-2 leading-tight">
+                Пойдёшь со мной на свидание? 💖
+            </h2>
+            <p id="final-subtext" class="text-pink-600 font-semibold text-sm sm:text-base min-h-[2.75rem] flex items-center justify-center px-2 mb-6 transition-all duration-200">
+                Обещаю, мы проведём это время незабываемо ✨
+            </p>
+
+            <!-- Buttons Container:
+                 Notice how #yes-btn stays permanently anchored in its slot,
+                 while #no-btn-slot reserves space so #yes-btn NEVER moves even when #no-btn detaches! -->
+            <div class="flex flex-row items-center justify-center gap-4 w-full min-h-[68px] relative">
+                <!-- Stationary YES Button -->
+                <div class="flex items-center justify-center z-20">
+                    <button id="yes-btn" onclick="acceptDate()"
+                        class="btn-romantic py-3.5 px-8 rounded-2xl text-white font-extrabold text-lg sm:text-xl flex items-center justify-center gap-2 cursor-pointer select-none whitespace-nowrap">
+                        <span>Да!</span>
+                        <span>❤️</span>
+                    </button>
+                </div>
+
+                <!-- Fixed-width Slot for the NO Button so layout never shifts -->
+                <div id="no-btn-slot" class="w-32 sm:w-36 h-14 flex items-center justify-center relative">
+                    <button id="no-btn" type="button" tabindex="-1"
+                        class="py-3.5 px-6 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-base sm:text-lg border border-slate-300/80 shadow-sm cursor-pointer select-none whitespace-nowrap z-50">
+                        Нет
+                    </button>
+                </div>
+            </div>
+
+            <!-- Escape Counter Badge (appears after she tries clicking No) -->
+            <div id="escape-badge" class="hidden mt-5 text-xs font-semibold text-slate-400 bg-white/60 px-3 py-1 rounded-full border border-pink-100">
+                Попыток нажать «Нет»: <span id="escape-count" class="text-pink-500 font-bold">0</span> (шансов: 0% 😄)
+            </div>
+        </section>
+
+        <!-- STEP 6: Celebration Screen -->
+        <section id="step-6" class="step-section hidden flex-col items-center">
+            <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 text-white shadow-lg shadow-pink-500/30 flex items-center justify-center text-4xl mb-4 heartbeat">
+                🎉
+            </div>
+            <h2 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-800 mb-2">
+                Ура! Это лучшее решение! 🎉💖
+            </h2>
+            <p id="custom-note-display" class="text-slate-600 text-sm sm:text-base mb-5">
+                Я знал, что ты ответишь «Да»! 😊✨
+            </p>
+
+            <!-- Summary Ticket Card -->
+            <div class="w-full bg-gradient-to-br from-pink-50/90 via-white to-rose-50/90 rounded-2xl p-4 sm:p-5 border-2 border-pink-200/80 shadow-sm text-left mb-6 relative overflow-hidden">
+                <div class="flex items-center justify-between border-b border-pink-100 pb-2.5 mb-3">
+                    <span class="text-xs font-extrabold uppercase tracking-wider text-pink-600 flex items-center gap-1.5">
+                        <span>🎟️</span> План нашего свидания
+                    </span>
+                    <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                        Подтверждено ❤️
+                    </span>
+                </div>
+
+                <div class="space-y-2.5 text-sm">
+                    <div>
+                        <span class="text-xs text-slate-400 block">Значит, с меня формат:</span>
+                        <span id="summary-q1" class="font-bold text-slate-800">Вкусный ужин и долгие разговоры ☕✨</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-slate-400 block">Главный секрет вечера:</span>
+                        <span id="summary-q2" class="font-bold text-slate-800">Искренность и классная атмосфера 💫</span>
+                    </div>
+                </div>
+
+                <div class="mt-3.5 pt-2.5 border-t border-dashed border-pink-200 text-xs text-pink-600 font-semibold text-center">
+                    Напиши мне, чтобы договориться о дне и времени ✨
+                </div>
+            </div>
+
+            <!-- Action Buttons on Final Screen -->
+            <div class="flex flex-col gap-2.5 w-full">
+                <a id="tg-action-btn" href="#" target="_blank" rel="noopener noreferrer"
+                    class="btn-romantic w-full py-3.5 px-6 rounded-2xl text-white font-bold text-base sm:text-lg flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Написать мне в Telegram</span>
+                    <span>✈️</span>
+                </a>
+
+                <button onclick="copyFinalResponse()"
+                    class="w-full py-3 px-5 rounded-2xl bg-white hover:bg-pink-50/60 text-slate-700 font-bold text-sm border border-pink-200 transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+                    <span id="copy-response-text">Скопировать мой ответ 💌</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Subtle Secret Customization Button for the Author (Bottom Corner) -->
+    <div id="author-tools-trigger" class="fixed bottom-3 right-3 z-20">
+        <button onclick="openAuthorModal()"
+            class="text-xs font-semibold text-slate-500/80 hover:text-pink-600 bg-white/50 hover:bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/70 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
+            <span>⚙️</span>
+            <span>Настроить ссылку</span>
+        </button>
+    </div>
+
+    <!-- Secret Author Customization Modal -->
+    <div id="author-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-pink-100 animate-[stepFadeIn_0.25s_ease] max-h-[90vh] overflow-y-auto custom-scroll">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">🛠️</span>
+                    <h3 class="font-heading font-bold text-lg text-slate-800">Секретная настройка</h3>
+                </div>
+                <button onclick="closeAuthorModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 font-bold cursor-pointer">
+                    ✕
+                </button>
+            </div>
+
+            <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+                Настрой имя девушки и свой Telegram. Сайт создаст персональную ссылку: когда она её откроет, кнопка настроек скроется, а в конце она сможет в один клик отправить тебе свой выбор!
+            </p>
+
+            <div class="space-y-3.5 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Имя девушки (необязательно)</label>
+                    <input id="input-girl-name" type="text" placeholder="Например: Аня, Солнышко, Катя"
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Твой ник в Telegram (для кнопки в конце)</label>
+                    <input id="input-tg-user" type="text" placeholder="Например: @username"
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Фраза на финальном экране</label>
+                    <input id="input-custom-note" type="text" placeholder="Я знал, что ты ответишь «Да»! 😊✨"
+                        class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:border-pink-400 focus:outline-none text-sm">
+                </div>
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-slate-100 flex flex-col gap-2.5">
+                <button onclick="generateAndCopyShareLink()"
+                    class="btn-romantic w-full py-3 px-4 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer">
+                    <span id="copy-link-btn-text">Скопировать готовую ссылку 🔗</span>
+                </button>
+                <button onclick="applySettingsPreview()"
+                    class="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all cursor-pointer">
+                    Применить и протестировать здесь 👀
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification -->
+    <div id="toast" class="fixed bottom-14 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 transform translate-y-2">
+        <div id="toast-text" class="bg-slate-900/90 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full shadow-lg backdrop-blur-md">
+            Скопировано! ✨
+        </div>
+    </div>
+
+    <script>
+        /**************************************************************
+         * 1. APPLICATION STATE & URL PARAMETERS
+         **************************************************************/
+        const state = {
+            currentStep: 1,
+            answer1: 'Вкусный ужин и долгие разговоры ☕✨',
+            answer2: 'Искренность и классная атмосфера 💫',
+            noEscapeCount: 0,
+            yesScale: 1,
+            soundEnabled: true,
+            girlName: '',
+            tgUsername: '',
+            customNote: 'Я знал, что ты ответишь «Да»! 😊✨',
+            noButtonDetached: false
+        };
+
+        const noButtonTexts = [
+            'Точно нет? 🤔',
+            'Не поймаешь 😜',
+            'Ой, мимо! ✨',
+            'Жми «Да»! 👉',
+            'Кнопка сломалась 🙈',
+            'Даже не пытайся 🏃‍♂️',
+            'А если подумать? 🥺',
+            'Слишком медленно! ⚡',
+            'Ответ неверный ❌',
+            'Ну же, жми «Да» ❤️'
+        ];
+
+        const subtextMessages = [
+            'Подумай хорошенько 😊',
+            'Кажется, кнопка «Нет» сегодня не работает 😜',
+            'Ну же, ты знаешь правильный ответ! ✨',
+            'Упс! Кнопка «Нет» испугалась и убежала 🏃‍♂️💨',
+            'Даже вселенная намекает на кнопку «Да!» 💖',
+            'Спойлер: нажать «Нет» всё равно не получится 🥰',
+            'Посмотри, какая красивая и большая кнопка «Да!» 👉❤️'
+        ];
+
+        const emojiReactions = ['💖', '🥺', '😜', '✨', '🥰', '🙈', '💘'];
+
+        function initAppFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const nameParam = params.get('name');
+            const tgParam = params.get('tg');
+            const noteParam = params.get('note');
+            const sharedParam = params.get('s');
+
+            if (nameParam && nameParam.trim() !== '') {
+                state.girlName = nameParam.trim();
+                document.getElementById('input-girl-name').value = state.girlName;
+            }
+            if (tgParam && tgParam.trim() !== '') {
+                state.tgUsername = tgParam.trim().replace(/^@/, '');
+                document.getElementById('input-tg-user').value = state.tgUsername;
+            }
+            if (noteParam && noteParam.trim() !== '') {
+                state.customNote = noteParam.trim();
+                document.getElementById('input-custom-note').value = state.customNote;
+            }
+
+            // Hide author settings button if opened via a personalized shared link
+            if (sharedParam === '1' || nameParam || tgParam) {
+                const trigger = document.getElementById('author-tools-trigger');
+                if (trigger) trigger.classList.add('hidden');
+            }
+
+            applyPersonalizationToDOM();
+        }
+
+        function applyPersonalizationToDOM() {
+            const heading = document.getElementById('intro-heading');
+            if (state.girlName) {
+                heading.textContent = `Привет, ${state.girlName}! ✨`;
+                document.title = `Для тебя, ${state.girlName} ✨`;
+            } else {
+                heading.textContent = 'Привет! ✨';
+                document.title = 'Для тебя ✨';
+            }
+
+            const noteEl = document.getElementById('custom-note-display');
+            if (noteEl) {
+                noteEl.textContent = state.customNote || 'Я знал, что ты ответишь «Да»! 😊✨';
+            }
+        }
+
+        /**************************************************************
+         * 2. WEB AUDIO SYNTHESIZER (Zero External Assets)
+         **************************************************************/
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playSound(type) {
+            if (!state.soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+
+                const now = ctx.currentTime;
+
+                if (type === 'click') {
+                    // Soft romantic pop
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(520, now);
+                    osc.frequency.exponentialRampToValueAtTime(780, now + 0.08);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.09);
+                } else if (type === 'whoosh') {
+                    // Playful cartoon dodge sound for the runaway No button
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    const startFreq = 300 + Math.random() * 180;
+                    osc.frequency.setValueAtTime(startFreq, now);
+                    osc.frequency.exponentialRampToValueAtTime(startFreq + 380, now + 0.11);
+                    gain.gain.setValueAtTime(0.14, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.12);
+                } else if (type === 'celebrate') {
+                    // Joyful major arpeggio chord
+                    const notes = [523.25, 659.25, 783.99, 1046.50];
+                    notes.forEach((freq, idx) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                        gain.gain.setValueAtTime(0.15, now + idx * 0.08);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.45);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now + idx * 0.08);
+                        osc.stop(now + idx * 0.08 + 0.46);
+                    });
+                }
+            } catch (e) {
+                // Ignore audio errors if blocked by browser
+            }
+        }
+
+        function toggleSound() {
+            state.soundEnabled = !state.soundEnabled;
+            document.getElementById('sound-icon').textContent = state.soundEnabled ? '🔊' : '🔇';
+            if (state.soundEnabled) playSound('click');
+        }
+
+        /**************************************************************
+         * 3. STEP NAVIGATION & QUESTION FLOW
+         **************************************************************/
+        function goToStep(stepNumber) {
+            playSound('click');
+            state.currentStep = stepNumber;
+
+            // Hide all steps
+            document.querySelectorAll('.step-section').forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('flex', 'step-enter');
+            });
+
+            // Show target step
+            const target = document.getElementById(`step-${stepNumber}`);
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('flex', 'step-enter');
+            }
+
+            // Update progress dots
+            updateProgressDots(stepNumber);
+
+            // Reset or prepare runaway button if entering Step 5
+            if (stepNumber === 5) {
+                setupRunawayNoButton();
+            } else {
+                resetNoButtonToSlot();
+            }
+        }
+
+        function selectAnswer(questionIndex, value, nextStep) {
+            if (questionIndex === 1) {
+                state.answer1 = value;
+            } else if (questionIndex === 2) {
+                state.answer2 = value;
+            }
+            goToStep(nextStep);
+        }
+
+        function updateProgressDots(step) {
+            const dots = document.querySelectorAll('.progress-dot');
+            const progressContainer = document.getElementById('progress-container');
+
+            if (step === 6) {
+                progressContainer.classList.add('opacity-0', 'pointer-events-none');
+                return;
+            } else {
+                progressContainer.classList.remove('opacity-0', 'pointer-events-none');
+            }
+
+            dots.forEach((dot, idx) => {
+                const dotStep = idx + 1;
+                if (dotStep === step) {
+                    dot.className = 'progress-dot w-6 h-2.5 rounded-full bg-pink-500 transition-all duration-300';
+                } else if (dotStep < step) {
+                    dot.className = 'progress-dot w-2.5 h-2.5 rounded-full bg-pink-400 transition-all duration-300';
+                } else {
+                    dot.className = 'progress-dot w-2 h-2 rounded-full bg-pink-200 transition-all duration-300';
+                }
+            });
+        }
+
+        /**************************************************************
+         * 4. RUNAWAY "НЕТ" BUTTON MECHANICS (Desktop & Mobile Touch)
+         **************************************************************/
+        const noBtn = document.getElementById('no-btn');
+        const noBtnSlot = document.getElementById('no-btn-slot');
+        const yesBtn = document.getElementById('yes-btn');
+
+        function setupRunawayNoButton() {
+            // Attach event listeners once
+            if (noBtn.dataset.bound === 'true') return;
+            noBtn.dataset.bound = 'true';
+
+            // Desktop hover triggers
+            noBtn.addEventListener('mouseenter', (e) => {
+                evadeNoButton(e);
+            });
+            noBtn.addEventListener('mouseover', (e) => {
+                evadeNoButton(e);
+            });
+
+            // Mobile touch & pointer triggers (preventDefault guarantees it can NEVER be clicked)
+            noBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const touch = e.touches[0];
+                evadeNoButton({ clientX: touch ? touch.clientX : null, clientY: touch ? touch.clientY : null });
+            }, { passive: false });
+
+            noBtn.addEventListener('pointerdown', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                evadeNoButton(e);
+            });
+
+            // Fallback in case someone tries keyboard focus or click
+            noBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                evadeNoButton(e);
+            });
+            noBtn.addEventListener('focus', (e) => {
+                noBtn.blur();
+                evadeNoButton(e);
+            });
+        }
+
+        function resetNoButtonToSlot() {
+            if (!state.noButtonDetached) return;
+            state.noButtonDetached = false;
+            noBtn.style.position = '';
+            noBtn.style.left = '';
+            noBtn.style.top = '';
+            noBtn.style.transform = '';
+            noBtn.textContent = 'Нет';
+            noBtnSlot.appendChild(noBtn);
+        }
+
+        function evadeNoButton(e) {
+            if (state.currentStep !== 5) return;
+
+            playSound('whoosh');
+            state.noEscapeCount++;
+
+            // Detach button to document.body on first escape so it can fly freely across the viewport
+            // while #no-btn-slot stays in the flex container so #yes-btn NEVER shifts even 1px!
+            if (!state.noButtonDetached) {
+                const startRect = noBtn.getBoundingClientRect();
+                state.noButtonDetached = true;
+                document.body.appendChild(noBtn);
+                noBtn.style.position = 'fixed';
+                noBtn.style.left = `${startRect.left}px`;
+                noBtn.style.top = `${startRect.top}px`;
+            }
+
+            const btnRect = noBtn.getBoundingClientRect();
+            const yesRect = yesBtn.getBoundingClientRect();
+            const btnWidth = btnRect.width || 130;
+            const btnHeight = btnRect.height || 52;
+
+            // Safe viewport boundaries with margin so it never goes off-screen
+            const margin = 20;
+            const topSafeMargin = 72; // Keep clear of top bar
+            const minX = margin;
+            const maxX = Math.max(minX + 20, window.innerWidth - btnWidth - margin);
+            const minY = topSafeMargin;
+            const maxY = Math.max(minY + 20, window.innerHeight - btnHeight - margin);
+
+            // Pointer coordinates to evade
+            const pointerX = (e && typeof e.clientX === 'number') ? e.clientX : (btnRect.left + btnWidth / 2);
+            const pointerY = (e && typeof e.clientY === 'number') ? e.clientY : (btnRect.top + btnHeight / 2);
+
+            let bestX = minX;
+            let bestY = minY;
+            let foundGoodSpot = false;
+
+            // Try up to 30 candidate coordinates to find one that:
+            // 1. Does NOT overlap the "Да! ❤️" button
+            // 2. Is far from the cursor/finger
+            // 3. Is noticeably far from the previous position
+            for (let attempt = 0; attempt < 30; attempt++) {
+                const candidateX = minX + Math.random() * (maxX - minX);
+                const candidateY = minY + Math.random() * (maxY - minY);
+
+                // Check overlap with "Да!" button (with 28px buffer)
+                const buffer = 28;
+                const overlapsYes = !(
+                    candidateX + btnWidth + buffer < yesRect.left ||
+                    candidateX - buffer > yesRect.right ||
+                    candidateY + btnHeight + buffer < yesRect.top ||
+                    candidateY - buffer > yesRect.bottom
+                );
+
+                // Check distance from pointer/finger
+                const centerCandidateX = candidateX + btnWidth / 2;
+                const centerCandidateY = candidateY + btnHeight / 2;
+                const distFromPointer = Math.hypot(centerCandidateX - pointerX, centerCandidateY - pointerY);
+
+                // Check distance from current button position
+                const distFromCurrent = Math.hypot(candidateX - btnRect.left, candidateY - btnRect.top);
+
+                if (!overlapsYes && distFromPointer > 130 && distFromCurrent > 90) {
+                    bestX = candidateX;
+                    bestY = candidateY;
+                    foundGoodSpot = true;
+                    break;
+                }
+
+                // Keep fallback that at least doesn't overlap Yes
+                if (!overlapsYes) {
+                    bestX = candidateX;
+                    bestY = candidateY;
+                }
+            }
+
+            // Apply new position and playful tilt
+            const randomAngle = (Math.random() - 0.5) * 18;
+            noBtn.style.left = `${Math.round(bestX)}px`;
+            noBtn.style.top = `${Math.round(bestY)}px`;
+            noBtn.style.transform = `rotate(${randomAngle.toFixed(1)}deg)`;
+
+            // Update text on the "Нет" button
+            const nextText = noButtonTexts[(state.noEscapeCount - 1) % noButtonTexts.length];
+            noBtn.textContent = nextText;
+
+            // Update dynamic subtext & emoji on the card
+            const subtextEl = document.getElementById('final-subtext');
+            subtextEl.textContent = subtextMessages[(state.noEscapeCount - 1) % subtextMessages.length];
+
+            const emojiEl = document.getElementById('final-emoji');
+            emojiEl.textContent = emojiReactions[state.noEscapeCount % emojiReactions.length];
+
+            // Make the stationary "Да! ❤️" button gently grow in size (up to 1.35x)
+            state.yesScale = Math.min(1.35, 1 + state.noEscapeCount * 0.045);
+            yesBtn.style.transform = `scale(${state.yesScale})`;
+
+            // Show escape counter badge
+            const badge = document.getElementById('escape-badge');
+            const countSpan = document.getElementById('escape-count');
+            badge.classList.remove('hidden');
+            countSpan.textContent = state.noEscapeCount;
+        }
+
+        // Keep runaway button inside viewport if screen resizes or rotates
+        window.addEventListener('resize', () => {
+            if (state.noButtonDetached && state.currentStep === 5) {
+                const rect = noBtn.getBoundingClientRect();
+                const maxX = Math.max(20, window.innerWidth - rect.width - 20);
+                const maxY = Math.max(72, window.innerHeight - rect.height - 20);
+                const clampedX = Math.min(Math.max(20, rect.left), maxX);
+                const clampedY = Math.min(Math.max(72, rect.top), maxY);
+                noBtn.style.left = `${clampedX}px`;
+                noBtn.style.top = `${clampedY}px`;
+            }
+        });
+
+        /**************************************************************
+         * 5. ACCEPT DATE ("ДА! ❤️" CLICKED) & CELEBRATION
+         **************************************************************/
+        function acceptDate() {
+            playSound('celebrate');
+
+            // Hide detached No button immediately
+            if (noBtn) {
+                noBtn.classList.add('hidden');
+            }
+
+            // Populate chosen answers on Celebration Screen
+            document.getElementById('summary-q1').textContent = state.answer1;
+            document.getElementById('summary-q2').textContent = state.answer2;
+
+            // Build Telegram message link
+            const replyMessage = `Привет! Я ответила «ДА!» ❤️✨\n\nМой выбор для нашего свидания:\n🌟 Формат: ${state.answer1}\n💫 Атмосфера: ${state.answer2}\n\nДавай договоримся о дне и времени! 😊`;
+            const encodedMsg = encodeURIComponent(replyMessage);
+            const tgBtn = document.getElementById('tg-action-btn');
+
+            if (state.tgUsername) {
+                tgBtn.href = `https://t.me/${state.tgUsername}?text=${encodedMsg}`;
+            } else {
+                tgBtn.href = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodedMsg}`;
+            }
+
+            goToStep(6);
+            launchCelebrationConfetti();
+        }
+
+        function copyFinalResponse() {
+            const replyMessage = `Я ответила «ДА!» на приглашение на свидание! 💖\nЗначит, с тебя: ${state.answer1} + ${state.answer2}! ✨`;
+            copyTextToClipboard(replyMessage);
+            const btnText = document.getElementById('copy-response-text');
+            btnText.textContent = 'Скопировано! Отправь мне в личку 💌';
+            showToast('Ответ скопирован в буфер обмена! 💖');
+        }
+
+        /**************************************************************
+         * 6. AUTHOR CUSTOMIZATION MODAL & CLIPBOARD HELPER
+         **************************************************************/
+        function openAuthorModal() {
+            playSound('click');
+            const modal = document.getElementById('author-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAuthorModal() {
+            const modal = document.getElementById('author-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function readModalInputs() {
+            state.girlName = document.getElementById('input-girl-name').value.trim();
+            state.tgUsername = document.getElementById('input-tg-user').value.trim().replace(/^@/, '');
+            const customNoteVal = document.getElementById('input-custom-note').value.trim();
+            if (customNoteVal) {
+                state.customNote = customNoteVal;
+            }
+            applyPersonalizationToDOM();
+        }
+
+        function applySettingsPreview() {
+            readModalInputs();
+            closeAuthorModal();
+            showToast('Настройки применены для предпросмотра! ✨');
+        }
+
+        function generateAndCopyShareLink() {
+            readModalInputs();
+            const baseUrl = window.location.origin + window.location.pathname;
+            const params = new URLSearchParams();
+            if (state.girlName) params.set('name', state.girlName);
+            if (state.tgUsername) params.set('tg', state.tgUsername);
+            if (state.customNote && state.customNote !== 'Я знал, что ты ответишь «Да»! 😊✨') {
+                params.set('note', state.customNote);
+            }
+            params.set('s', '1'); // Hides the settings button for the recipient
+
+            const finalUrl = `${baseUrl}?${params.toString()}`;
+            copyTextToClipboard(finalUrl);
+
+            const btnText = document.getElementById('copy-link-btn-text');
+            btnText.textContent = 'Ссылка скопирована! Отправь ей 💌';
+            setTimeout(() => {
+                btnText.textContent = 'Скопировать готовую ссылку 🔗';
+            }, 3500);
+
+            showToast('Персональная ссылка скопирована! 🔗✨');
+        }
+
+        function copyTextToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                // Fallback
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            toastText.textContent = message;
+            toast.classList.remove('opacity-0', 'translate-y-2');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-2');
+            }, 2600);
+        }
+
+        /**************************************************************
+         * 7. BACKGROUND FLOATING HEARTS & SPARKLES CANVAS
+         **************************************************************/
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let bgParticles = [];
+
+        function resizeBgCanvas() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+
+        function createBgParticles() {
+            bgParticles = [];
+            const count = Math.min(28, Math.floor(window.innerWidth / 45) + 12);
+            for (let i = 0; i < count; i++) {
+                bgParticles.push({
+                    x: Math.random() * bgCanvas.width,
+                    y: Math.random() * bgCanvas.height,
+                    size: 8 + Math.random() * 14,
+                    speedY: 0.35 + Math.random() * 0.65,
+                    speedX: (Math.random() - 0.5) * 0.4,
+                    opacity: 0.18 + Math.random() * 0.35,
+                    wobble: Math.random() * Math.PI * 2,
+                    wobbleSpeed: 0.015 + Math.random() * 0.02,
+                    isSparkle: Math.random() > 0.72
+                });
+            }
+        }
+
+        function drawHeartShape(ctx, x, y, size) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.beginPath();
+            const topCurveHeight = size * 0.3;
+            ctx.moveTo(0, topCurveHeight);
+            // Left side of heart
+            ctx.bezierCurveTo(0, 0, -size / 2, 0, -size / 2, topCurveHeight);
+            ctx.bezierCurveTo(-size / 2, (size + topCurveHeight) / 2, 0, (size + topCurveHeight) / 1.4, 0, size);
+            // Right side of heart
+            ctx.bezierCurveTo(0, (size + topCurveHeight) / 1.4, size / 2, (size + topCurveHeight) / 2, size / 2, topCurveHeight);
+            ctx.bezierCurveTo(size / 2, 0, 0, 0, 0, topCurveHeight);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawSparkleShape(ctx, x, y, size) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.beginPath();
+            const r = size * 0.55;
+            for (let i = 0; i < 4; i++) {
+                ctx.lineTo(Math.cos((i * Math.PI) / 2) * r, Math.sin((i * Math.PI) / 2) * r);
+                ctx.lineTo(
+                    Math.cos(((i + 0.5) * Math.PI) / 2) * (r * 0.3),
+                    Math.sin(((i + 0.5) * Math.PI) / 2) * (r * 0.3)
+                );
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function animateBgCanvas() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+            bgParticles.forEach(p => {
+                p.y -= p.speedY;
+                p.wobble += p.wobbleSpeed;
+                p.x += Math.sin(p.wobble) * 0.4 + p.speedX;
+
+                if (p.y < -30) {
+                    p.y = bgCanvas.height + 20;
+                    p.x = Math.random() * bgCanvas.width;
+                }
+
+                if (p.isSparkle) {
+                    bgCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity + 0.2})`;
+                    drawSparkleShape(bgCtx, p.x, p.y, p.size);
+                } else {
+                    bgCtx.fillStyle = `rgba(244, 114, 182, ${p.opacity})`;
+                    drawHeartShape(bgCtx, p.x, p.y, p.size);
+                }
+            });
+
+            requestAnimationFrame(animateBgCanvas);
+        }
+
+        /**************************************************************
+         * 8. CELEBRATION CONFETTI & HEARTS EXPLOSION
+         **************************************************************/
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        const confettiCtx = confettiCanvas.getContext('2d');
+        let confettiPieces = [];
+        let confettiActive = false;
+
+        function resizeConfettiCanvas() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+
+        function launchCelebrationConfetti() {
+            resizeConfettiCanvas();
+            confettiPieces = [];
+            const colors = ['#ff4d79', '#ff758c', '#f43f5e', '#fb7185', '#f472b6', '#fbbf24', '#a855f7'];
+
+            for (let i = 0; i < 130; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 4 + Math.random() * 12;
+                confettiPieces.push({
+                    x: confettiCanvas.width / 2,
+                    y: confettiCanvas.height / 2,
+                    vx: Math.cos(angle) * velocity,
+                    vy: Math.sin(angle) * velocity - 4,
+                    size: 7 + Math.random() * 10,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() - 0.5) * 10,
+                    isHeart: Math.random() > 0.45,
+                    opacity: 1
+                });
+            }
+
+            if (!confettiActive) {
+                confettiActive = true;
+                animateConfetti();
+            }
+        }
+
+        function animateConfetti() {
+            confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+            let remaining = 0;
+            confettiPieces.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.22; // Gravity
+                p.vx *= 0.99; // Air resistance
+                p.rotation += p.rotationSpeed;
+
+                if (p.y > confettiCanvas.height - 80) {
+                    p.opacity -= 0.025;
+                }
+
+                if (p.opacity > 0 && p.y < confettiCanvas.height + 40) {
+                    remaining++;
+                    confettiCtx.save();
+                    confettiCtx.globalAlpha = Math.max(0, p.opacity);
+                    confettiCtx.fillStyle = p.color;
+
+                    if (p.isHeart) {
+                        drawHeartShape(confettiCtx, p.x, p.y, p.size);
+                    } else {
+                        confettiCtx.translate(p.x, p.y);
+                        confettiCtx.rotate((p.rotation * Math.PI) / 180);
+                        confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+                    }
+                    confettiCtx.restore();
+                }
+            });
+
+            if (remaining > 0) {
+                requestAnimationFrame(animateConfetti);
+            } else {
+                confettiActive = false;
+                confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            }
+        }
+
+        /**************************************************************
+         * 9. INITIALIZE ON WINDOW LOAD
+         **************************************************************/
+        window.onload = function () {
+            initAppFromURL();
+            resizeBgCanvas();
+            resizeConfettiCanvas();
+            createBgParticles();
+            animateBgCanvas();
+
+            window.addEventListener('resize', () => {
+                resizeBgCanvas();
+                resizeConfettiCanvas();
+            });
+        };
+    </script>
+</body>
+</html>
